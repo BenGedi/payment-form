@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import LockImage from '../../assets/images/lock.png';
+import Input from '../../UI/Input/Input';
+import Select from '../../UI/Select/Select';
 
 const { MonthPicker } = DatePicker;
 const FormWrapper = styled.div`
@@ -35,6 +37,7 @@ const FormStlyed = styled.form`
 class Form extends Component {
 	state = {
 		value: '',
+		isValid: true
 	};
 
 	monthNames = ["January", "February", "March", "April", "May", "June",
@@ -50,7 +53,8 @@ class Form extends Component {
 			});
 	}
 	handleChange = event => {
-		this.setState({ value: event.target.value });
+		const value = event.target.value;
+		this.setState({ value});
 	}
 
 	handleSubmit = event => {
@@ -63,6 +67,7 @@ class Form extends Component {
 	}
 
 	render() {
+		console.log('From state: ', this.state);
 		return (
 			<FormWrapper>
 				<FormHeader>
@@ -75,23 +80,23 @@ class Form extends Component {
 						<label className="form-label">
 							Billing Address
 						</label>
-						<input className="form-input" type="text" value={this.state.value} onChange={this.handleChange} />
-						<select className="form-select" onChange={this.handleChange} >
-							<option >select countery</option>
-						</select>
+						<div className="form-2-inputs">
+							<Input isValid={this.state.isValid} className="form-input" type="text" value={this.state.value} placeholder="Street Address" changed={this.handleChange} />
+							<Select isValid={this.state.isValid} placeHolder="Select Country" optionValue="countryCode" optionName="countryName" options={this.state.geonames} />
+						</div>
 					</div>
 					<div className="form-row">
 						<label className="form-label">
 							Credit card details
 						</label>
-						<input className="form-input" type="text" value={this.state.value} onChange={this.handleChange} />
+						<Input className="form-input" type="text" value={this.state.value} onChange={() => {}} />
 						<img src="" alt="" />
 						<div>
 							<MonthPicker onChange={this.onChangeMonthHandler} placeholder="Select month" />
-							<select className="form-select" onChange={this.handleChange} >
+							<select className="form-select" onChange={this.handleChange}>
 								<option >select countery</option>
 							</select>
-							<input className="form-input" type="text" value={this.state.value} onChange={this.handleChange} />
+							<Input className="form-input" type="text" value={this.state.value} onChange={() => {}} />
 						</div>
 					</div>
 					<input type="submit" value="Submit" />
