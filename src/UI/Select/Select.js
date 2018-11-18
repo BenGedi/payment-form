@@ -32,6 +32,8 @@ class Select extends Component {
         if (nextState.value !==  this.state.value) {
             return true;
         }
+
+        return false;
     }
 
 
