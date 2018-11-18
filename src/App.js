@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
+import { inject } from 'mobx-react';
+import { withRouter } from "react-router";
+import { Route } from "react-router-dom";
+
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
 import ThankYou from './components/ThankYou/ThankYou';
-import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends Component {
-
-  render() {
-    return (
-      <BrowserRouter>
-        <>
-          <Header />
-    
-          <Route exact path="/" component={Form} />
-          <Route path="/thank-you" component={ThankYou} />
-        </>
-    </BrowserRouter>
-    );
-  }
+	render() {
+		return (
+			<>
+				<Header />
+				<Route path="/thank-you" component={ThankYou} />
+				<Route exact path="/" render={() => <Form {...this.props} />} />
+			</>
+		);
+	}
 }
 
-export default App;
+export default withRouter(inject('store')(App));

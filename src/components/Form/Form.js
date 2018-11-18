@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { DatePicker } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
+import { observer } from "mobx-react";
 
 import LockImage from '../../assets/images/lock.png';
 import Input from '../../UI/Input/Input';
 import Select from '../../UI/Select/Select';
+import { withRouter } from "react-router";
 
 const { MonthPicker } = DatePicker;
 const FormWrapper = styled.div`
@@ -43,6 +45,7 @@ class Form extends Component {
 	monthNames = ["January", "February", "March", "April", "May", "June",
 		"July", "August", "September", "October", "November", "December"];
 	componentDidMount = () => {
+		const countries = this.props.store.getCounteries();
 		axios.get('http://api.geonames.org/countryInfoJSON?username=dperic')
 			.then(response => {
 				this.setState({geonames: response.data.geonames});
@@ -106,4 +109,4 @@ class Form extends Component {
 	}
 }
 
-export default Form;
+export default withRouter(observer(Form));
