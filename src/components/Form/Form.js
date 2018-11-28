@@ -75,7 +75,14 @@ class Form extends Component {
 						</label>
 						<div className="form-2-inputs">
 							<Input isValid={this.state.isValid} className="form-input" type="text" value={this.state.value} placeholder="Street Address" changed={this.handleChange} />
-							<Select isValid={this.state.isValid} placeHolder="Select Country" optionValue="countryCode" optionName="countryName" options={this.props.store.countries} />
+							<Select 
+								isValid={this.state.isValid} 
+								placeHolder="Select Country" 
+								optionValue="countryCode" 
+								optionName="countryName"
+								value={this.props.store.currentCountery}
+								changed={this.props.store.countryChanege}
+								options={this.props.store.countries} />
 						</div>
 					</div>
 					<div className="form-row">

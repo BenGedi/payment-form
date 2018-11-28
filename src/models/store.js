@@ -26,7 +26,9 @@ const Country = types.model({
 
 const Countries = types
     .model('Countries', {
-        countries: types.array(Country, [])
+        countries: types.array(Country, []),
+        currentCountery: types.optional(types.string, ''),
+        isValid: types.optional(types.boolean, true)
     })
     .actions(self => ({
         getCounteries: flow(function*() {
@@ -35,7 +37,10 @@ const Countries = types
             const response = yield axios.get('http://api.geonames.org/countryInfoJSON?username=dperic');
 
             self.countries = response.data.geonames;
-        })
+        }),
+        countryChanege: (e) => {
+            self.currentCountery = e.target.value;
+        }
     }))
 
 const Months = types.model('Months',{
