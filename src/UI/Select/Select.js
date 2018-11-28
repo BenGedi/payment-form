@@ -13,7 +13,7 @@ export const SelectStyled = styled(createInputStyled('select'))`
     }
 `;
 
-const Select =({optionValue, optionName, options, value, changed, placeHolder, isValid}) => (
+const Select = ({ optionValue, optionName, options, value, changed, placeHolder, isValid }) => (
     <SelectStyled name="" id="" value={value || ''} isValid={isValid} onChange={changed} >
         <option value="" disabled>{placeHolder}</option>
         {
