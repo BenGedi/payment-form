@@ -1,6 +1,9 @@
 import { types, flow } from "mobx-state-tree";
 import axios from 'axios';
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
 const Country = types.model({
     areaInSqKm: types.string,
     capital: types.string,
@@ -22,26 +25,36 @@ const Country = types.model({
 })
 
 const Countries = types
-    .model({
-        countries: types.array(Country)
+    .model('Countries', {
+        countries: types.array(Country, [])
     })
     .actions(self => ({
         getCounteries: flow(function*() {
+            // const response = yield fetch('http://api.geonames.org/countryInfoJSON?username=dperic');
+            // const data = yield response.json();
             const response = yield axios.get('http://api.geonames.org/countryInfoJSON?username=dperic');
 
             self.countries = response.data.geonames;
-        }),
+        })
     }))
+
+const Months = types.model('Months',{
+    months: types.array(types.string),
+    currentMounth: types.optional(types.number, 1),
+})
+
+
 
 export const SelectModel = types
     .compose(
         Countries,
+        Months
     )
 
-    export const store = SelectModel.create({
-        countries: []
-    })
+export const store = SelectModel.create({
+    months: monthNames
+});
 
-    // store.getCounteries().then((res) => {
-    //     console.log("getCounteries done: ", res);
-    // })
+// store.getCounteries().then((res) => {
+//     console.log("getCounteries done: ", res);
+// })

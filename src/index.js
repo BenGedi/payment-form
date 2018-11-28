@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import { Provider } from 'mobx-react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {store} from './models/SelectModel';
+import {store} from './models/store';
 
 const router = (
     <Provider store={store}>

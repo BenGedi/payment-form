@@ -41,9 +41,6 @@ class Form extends Component {
 		isValid: true
 	};
 
-	monthNames = ["January", "February", "March", "April", "May", "June",
-		"July", "August", "September", "October", "November", "December"];
-
 	handleChange = event => {
 		const value = event.target.value;
 		this.setState({ value});
@@ -78,7 +75,7 @@ class Form extends Component {
 						</label>
 						<div className="form-2-inputs">
 							<Input isValid={this.state.isValid} className="form-input" type="text" value={this.state.value} placeholder="Street Address" changed={this.handleChange} />
-							<Select isValid={this.state.isValid} placeHolder="Select Country" optionValue="countryCode" optionName="countryName" options={this.props.store.countries.toJSON()} />
+							<Select isValid={this.state.isValid} placeHolder="Select Country" optionValue="countryCode" optionName="countryName" options={this.props.store.countries} />
 						</div>
 					</div>
 					<div className="form-row">
