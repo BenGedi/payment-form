@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import { observer } from "mobx-react";
 import { createInputStyled } from '../style-utils';
 
 export const SelectStyled = styled(createInputStyled('select'))`
@@ -15,7 +16,6 @@ export const SelectStyled = styled(createInputStyled('select'))`
 class Select extends Component {
 
     state = {
-        options: [],
         value: ''
     }
     
@@ -23,27 +23,13 @@ class Select extends Component {
         this.setState({value: event.target.value})
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.options !== this.state.options) {
-            this.setState({options: nextProps.options});
-            return true;
-        }
-
-        if (nextState.value !==  this.state.value) {
-            return true;
-        }
-
-        return false;
-    }
-
-
     render () {
-        const {optionValue, optionName} = this.props;
+        const {optionValue, optionName, options} = this.props;
         return (
             <SelectStyled name="" id="" value={this.state.value} isValid={this.props.isValid} onChange={this.onChange} >
                 <option value="" disabled>{this.props.placeHolder}</option>
                 {
-                    this.state.options.map(option => (
+                    options.map(option => (
                         <option value={option[optionValue]} key={option[optionValue]}>{option[optionName]}</option>
                     ))
 
@@ -53,4 +39,4 @@ class Select extends Component {
     }
 }
 
-export default Select;
+export default observer(Select);
